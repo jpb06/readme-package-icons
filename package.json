@@ -20,7 +20,7 @@
     "test:ci": "jest --ci --coverage",
     "lint": "eslint ./src",
     "type-check": "tsc --noEmit",
-    "cli": "node ./dist/cli/cool.js"
+    "cli": "pnpm build && node ./dist/cli/generate-readme-icons.cli.js"
   },
   "dependencies": {
     "chalk": "4.1.2",
