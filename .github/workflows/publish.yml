@@ -3,7 +3,7 @@ name: Coverage badges generation & publish
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   install:
