@@ -1,0 +1,54 @@
+name: Coverage badges generation & publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: '.node-version'
+          cache: 'pnpm'
+
+      - name: Installing dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Tests
+        run: pnpm test:ci
+
+      - name: Generating coverage badges
+        uses: jpb06/jest-badges-action@v1.8.11
+
+      - name: Bump package version
+        id: bumping-version
+        uses: jpb06/bump-package@v2.5.0
+
+      - name: Building package
+        run: pnpm build
+
+      - name: Publish package
+        if: steps.bumping-version.outputs.bump-performed == 'true'
+        run: npm publish ./dist
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

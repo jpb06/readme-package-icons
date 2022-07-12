@@ -1,16 +1,40 @@
 {
   "name": "readme-package-icons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "git@github.com:jpb06/readme-package-icons.git",
   "author": "jpb06 <jp.bois.06@outlook.fr>",
   "license": "MIT",
+  "bin": {
+    "generateReadmeIcons": "./cli/generate-readme-icons.cli.js"
+  },
+  "scripts": {
+    "copy-package": "copyfiles package.json ./dist/",
+    "copy-readme": "copyfiles README.md ./dist/",
+    "build": "del-cli ./dist && tsc --project tsconfig.prod.json",
+    "postbuild": "pnpm copy-package && pnpm copy-readme",
+    "test": "jest",
+    "test:changes": "jest --watch",
+    "test:dev": "jest --coverage --watchAll",
+    "test:silentcov": "jest --coverage --silent --runInBand --watchAll=false",
+    "test:ci": "jest --ci --coverage",
+    "lint": "eslint ./src",
+    "type-check": "tsc --noEmit",
+    "cli": "pnpm build && node ./dist/cli/generate-readme-icons.cli.js"
+  },
+  "dependencies": {
+    "chalk": "4.1.2",
+    "fs-extra": "^10.1.0",
+    "yargs": "^17.5.1"
+  },
   "devDependencies": {
     "@jest/types": "^28.1.1",
     "@swc/core": "^1.2.210",
     "@swc/jest": "^0.2.21",
+    "@types/fs-extra": "^9.0.13",
     "@types/jest": "^28.1.4",
     "@types/node": "^18.0.3",
+    "@types/yargs": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "copyfiles": "^2.4.1",
@@ -21,22 +45,9 @@
     "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^28.1.2",
+    "jest-mock": "^28.1.1",
     "jest-watch-typeahead": "^1.1.0",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4"
-  },
-  "scripts": {
-    "copy-package": "copyfiles package.json ./dist/",
-    "copy-readme": "copyfiles README.md ./dist/",
-    "build": "del-cli ./dist && tsc --project tsconfig.prod.json",
-    "postbuild": "yarn copy-package && yarn copy-readme",
-    "test": "jest",
-    "test:changes": "jest --watch",
-    "test:dev": "jest --coverage --watchAll",
-    "test:silentcov": "jest --coverage --silent --runInBand --watchAll=false",
-    "test:ci": "jest --ci --coverage",
-    "lint": "eslint ./src",
-    "type-check": "tsc --noEmit",
-    "cli": "node ./dist/cli/cool.js"
   }
 }
