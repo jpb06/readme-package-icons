@@ -1,4 +1,4 @@
-name: Coverage badges generation & publish
+name: Publish
 
 on:
   push:
