@@ -130,7 +130,7 @@ export const technosSpecs = {
     dependenciesPattern: undefined,
     docUrl: 'https://docs.github.com/en/actions',
     iconUrl:
-      'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/github-actions.png',
+      'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/github-actions.svg',
   },
   graphql: {
     dependenciesPattern: /^graphql$/,
