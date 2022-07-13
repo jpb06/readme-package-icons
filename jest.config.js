@@ -20,7 +20,7 @@ module.exports = {
     "src/**/*.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/dist/",
-    "!<rootDir>/src/index.ts",
+    "!<rootDir>/src/**/index.ts",
     "!<rootDir>/src/specs/technos.ts",
     "!<rootDir>/src/tests/**",
     "!<rootDir>/src/workflows/**"

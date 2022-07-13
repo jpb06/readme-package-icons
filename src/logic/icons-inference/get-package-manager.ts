@@ -1,10 +1,9 @@
 import { readdir } from 'fs-extra';
 
-import { technosSpecs, Techno } from '../../specs/technos';
+import { technosSpecs } from '../../specs/technos';
+import { InferenceFunction } from './../../types/inference-function.type';
 
-export const getPackageManager = async (
-  path: string,
-): Promise<Array<Techno>> => {
+export const getPackageManager: InferenceFunction = async (path) => {
   const files = await readdir(path);
 
   if (!files.some(() => 'package.json')) {
