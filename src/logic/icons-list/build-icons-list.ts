@@ -5,6 +5,8 @@ export const buildIconsList = (icons: Array<Techno>, height: number): string =>
     .map(([, { docUrl, iconUrl }]) => {
       const image = `<img height="${height}" src="${iconUrl}" />`;
 
-      return docUrl ? `<a href="${docUrl}">${image}</a>` : image;
+      return docUrl
+        ? `<a href="${docUrl}" target="_blank">${image}</a>`
+        : image;
     })
     .join('&nbsp;')}</p>`;

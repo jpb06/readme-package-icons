@@ -18,7 +18,8 @@ describe('buildIconsList function', () => {
   it('should generate links around images', () => {
     const result = buildIconsList(technosWithLinks, 100);
 
-    const regex = /<a href="\S+"><img height="100" src="\S+" \/><\/a>/g;
+    const regex =
+      /<a href="\S+" target="_blank"><img height="100" src="\S+" \/><\/a>/g;
     const count = (result.match(regex) || []).length;
 
     expect(count).toBe(3);
