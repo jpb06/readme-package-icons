@@ -100,3 +100,7 @@ import { generateReadmeIcons } from 'readme-package-icons';
   });
 })();
 ```
+
+## ⚡ Thanks
+
+This module uses some icons from [devicons](https://github.com/devicons/devicon/). Thanks for their great work!
