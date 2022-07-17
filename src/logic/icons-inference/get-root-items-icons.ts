@@ -1,14 +1,10 @@
 import { readdir } from 'fs-extra';
 
 import { technosSpecs } from '../../specs/technos';
-import { InferenceFunction } from './../../types/inference-function.type';
+import { InferenceFunction } from '../../types/inference-function.type';
 
-export const getPackageManager: InferenceFunction = async (path) => {
+export const getRootItemsIcons: InferenceFunction = async (path) => {
   const files = await readdir(path);
-
-  if (!files.some(() => 'package.json')) {
-    return [];
-  }
 
   const items = [];
 
@@ -26,6 +22,10 @@ export const getPackageManager: InferenceFunction = async (path) => {
     items.push(technosSpecs.yarn);
   } else if (files.includes('pnpm-lock.yaml')) {
     items.push(technosSpecs.pnpm);
+  }
+
+  if (files.some((el) => el.toLowerCase().includes('docker'))) {
+    items.push(technosSpecs.docker);
   }
 
   return items;

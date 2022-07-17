@@ -1,20 +1,12 @@
 import { readdir } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
-import { getPackageManager } from './get-package-manager';
+import { getRootItemsIcons } from './get-root-items-icons';
 
 jest.mock('fs-extra');
 
-describe('getPackageManager function', () => {
+describe('getRootItemsIcons function', () => {
   const path = './repos/myRepo';
-
-  it('should return nothing if there is no package.json', async () => {
-    mocked(readdir).mockResolvedValueOnce([] as never);
-
-    const result = await getPackageManager(path);
-
-    expect(result).toStrictEqual([]);
-  });
 
   it('should return typescript if there is a tsconfig file', async () => {
     mocked(readdir).mockResolvedValueOnce([
@@ -22,7 +14,7 @@ describe('getPackageManager function', () => {
       'tsconfig.json',
     ] as never);
 
-    const result = await getPackageManager(path);
+    const result = await getRootItemsIcons(path);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -42,7 +34,7 @@ describe('getPackageManager function', () => {
       'tsconfig.json',
     ] as never);
 
-    const result = await getPackageManager(path);
+    const result = await getRootItemsIcons(path);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -59,7 +51,7 @@ describe('getPackageManager function', () => {
   it('should return javascript', async () => {
     mocked(readdir).mockResolvedValueOnce(['package.json'] as never);
 
-    const result = await getPackageManager(path);
+    const result = await getRootItemsIcons(path);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -79,7 +71,7 @@ describe('getPackageManager function', () => {
       'package-lock.json',
     ] as never);
 
-    const result = await getPackageManager(path);
+    const result = await getRootItemsIcons(path);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -99,7 +91,7 @@ describe('getPackageManager function', () => {
       'yarn.lock',
     ] as never);
 
-    const result = await getPackageManager(path);
+    const result = await getRootItemsIcons(path);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -119,7 +111,7 @@ describe('getPackageManager function', () => {
       'pnpm-lock.yaml',
     ] as never);
 
-    const result = await getPackageManager(path);
+    const result = await getRootItemsIcons(path);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -128,6 +120,42 @@ describe('getPackageManager function', () => {
           docUrl: 'https://pnpm.io/motivation',
           iconUrl:
             'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/pnpm.svg',
+        },
+      ]),
+    );
+  });
+
+  it('should return docker when a Dockerfile is present', async () => {
+    mocked(readdir).mockResolvedValueOnce(['Dockerfile'] as never);
+
+    const result = await getRootItemsIcons(path);
+
+    expect(result).toEqual(
+      expect.arrayContaining([
+        {
+          dependenciesPattern: undefined,
+          docUrl: 'https://docs.docker.com',
+          iconUrl:
+            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+        },
+      ]),
+    );
+  });
+
+  it('should return docker when a Docker compose file is present', async () => {
+    mocked(readdir).mockResolvedValueOnce([
+      'docker-compose.backend.yml',
+    ] as never);
+
+    const result = await getRootItemsIcons(path);
+
+    expect(result).toEqual(
+      expect.arrayContaining([
+        {
+          dependenciesPattern: undefined,
+          docUrl: 'https://docs.docker.com',
+          iconUrl:
+            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
         },
       ]),
     );
