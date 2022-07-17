@@ -36,14 +36,19 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Tests
-        run: pnpm test:ci
+        run: pnpm test-ci
 
       - name: Generating coverage badges
-        uses: jpb06/jest-badges-action@v1.8.11
+        uses: jpb06/jest-badges-action@v1.9.1
 
       - name: Bump package version
         id: bumping-version
-        uses: jpb06/bump-package@v2.5.0
+        uses: jpb06/bump-package@v2.5.3
+        with:
+          major-keywords: BREAKING CHANGE
+          minor-keywords: feat,minor
+          patch-keywords: fix,chore
+          should-default-to-patch: true
 
       - name: Building package
         run: pnpm build

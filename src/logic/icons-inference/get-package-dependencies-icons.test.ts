@@ -1,4 +1,4 @@
-import { readJson } from 'fs-extra';
+import { pathExists, readJson } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
 import { packageJson } from '../../tests/mock-data/package-json';
@@ -9,7 +9,16 @@ jest.mock('fs-extra');
 describe('getPackageDependenciesIcons function', () => {
   const path = './cool';
 
+  it('should return an empty array if package.json does not exist', async () => {
+    mocked(pathExists).mockResolvedValueOnce(false as never);
+
+    const result = await getPackageDependenciesIcons(path);
+
+    expect(result).toStrictEqual([]);
+  });
+
   it('should get matching technos', async () => {
+    mocked(pathExists).mockResolvedValueOnce(true as never);
     mocked(readJson).mockResolvedValueOnce(packageJson as never);
 
     const result = await getPackageDependenciesIcons(path);
