@@ -1,7 +1,7 @@
 import { pathExists } from 'fs-extra';
 
 import { technosSpecs } from '../../specs/technos';
-import { getDependencies } from '../package/get-dependencies';
+import { getPackageJsonData } from '../package/get-package-json-data';
 import { InferenceFunction } from './../../types/inference-function.type';
 
 export const getPackageDependenciesIcons: InferenceFunction = async (path) => {
@@ -10,13 +10,13 @@ export const getPackageDependenciesIcons: InferenceFunction = async (path) => {
     return [];
   }
 
-  const dependencies = await getDependencies(path);
+  const json = await getPackageJsonData(path);
 
   return Object.entries(technosSpecs)
     .filter(
       ([, { dependenciesPattern }]) =>
         dependenciesPattern &&
-        dependencies.some((dep) => dep.match(dependenciesPattern)),
+        json.dependencies.some((dep) => dep.match(dependenciesPattern)),
     )
     .map(([, techno]) => techno);
 };

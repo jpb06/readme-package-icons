@@ -41,6 +41,12 @@ export const technosSpecs = {
     iconUrl:
       'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/circleci/circleci-plain-wordmark.svg',
   },
+  cockroachdb: {
+    dependenciesPattern: undefined,
+    docUrl: 'https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html',
+    iconUrl:
+      'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/cockroachdb.svg',
+  },
   'conventional-changelog': {
     dependenciesPattern:
       /^commitlint$|.*conventional-changelog.*|^@commitlint.*/,
@@ -114,6 +120,12 @@ export const technosSpecs = {
     iconUrl:
       'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/fastify.svg',
   },
+  'fly-io': {
+    dependenciesPattern: undefined,
+    docUrl: 'https://fly.io/docs/',
+    iconUrl:
+      'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/fly-io.png',
+  },
   gatsby: {
     dependenciesPattern: /gatsby.*/,
     docUrl: 'https://www.gatsbyjs.com/docs',
@@ -137,6 +149,12 @@ export const technosSpecs = {
     docUrl: 'https://graphql.org/learn/',
     iconUrl:
       'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg',
+  },
+  heroku: {
+    dependenciesPattern: undefined,
+    docUrl: 'https://devcenter.heroku.com/categories/reference',
+    iconUrl:
+      'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-original.svg',
   },
   i18next: {
     dependenciesPattern: /.*i18next.*/,
@@ -282,6 +300,12 @@ export const technosSpecs = {
     iconUrl:
       'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/pnpm.svg',
   },
+  postgresql: {
+    dependenciesPattern: undefined,
+    docUrl: 'https://www.postgresql.org/docs/',
+    iconUrl:
+      'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+  },
   prettier: {
     dependenciesPattern: /^prettier$/,
     docUrl: 'https://prettier.io/docs/en/index.html',
@@ -383,6 +407,12 @@ export const technosSpecs = {
     docUrl: 'https://www.sqlite.org/docs.html',
     iconUrl:
       'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg',
+  },
+  sqlserver: {
+    dependenciesPattern: undefined,
+    docUrl: 'https://docs.microsoft.com/en-us/sql/?view=sql-server-ver16',
+    iconUrl:
+      'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg',
   },
   storybook: {
     dependenciesPattern: /^@storybook.*/,

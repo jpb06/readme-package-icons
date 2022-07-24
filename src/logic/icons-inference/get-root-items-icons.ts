@@ -4,7 +4,7 @@ import { technosSpecs } from '../../specs/technos';
 import { InferenceFunction } from '../../types/inference-function.type';
 
 export const getRootItemsIcons: InferenceFunction = async (path) => {
-  const files = await readdir(path);
+  const files = (await readdir(path)).map((el) => el.toLocaleLowerCase());
 
   const items = [];
 
@@ -22,6 +22,10 @@ export const getRootItemsIcons: InferenceFunction = async (path) => {
     items.push(technosSpecs.yarn);
   } else if (files.includes('pnpm-lock.yaml')) {
     items.push(technosSpecs.pnpm);
+  } else if (files.includes('fly.toml')) {
+    items.push(technosSpecs['fly-io']);
+  } else if (files.includes('procfile')) {
+    items.push(technosSpecs.heroku);
   }
 
   if (files.some((el) => el.toLowerCase().includes('docker'))) {
