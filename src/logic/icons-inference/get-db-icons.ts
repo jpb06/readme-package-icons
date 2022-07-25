@@ -17,7 +17,7 @@ export const getDbIcons: InferenceFunction = async (path) => {
     return [];
   }
 
-  const items = Object.values(json.scripts).reduce<Promise<Array<Techno>>>(
+  return Object.values(json.scripts).reduce<Promise<Array<Techno>>>(
     async (technosPromise, command) => {
       const res = command.match(prismaGenerateRegex);
       if (!res || res.length !== 4) {
@@ -38,6 +38,4 @@ export const getDbIcons: InferenceFunction = async (path) => {
     },
     [] as never,
   );
-
-  return items;
 };
