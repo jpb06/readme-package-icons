@@ -1,1 +1,2 @@
-export const prismaProviderRegex = /.*provider = "(.*)"/;
+export const prismaProviderRegex =
+  /provider = "(postgresql|mysql|sqlite|sqlserver|mongodb|cockroachdb)"/;
