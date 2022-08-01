@@ -34,7 +34,15 @@ export const getDbIcons: InferenceFunction = async (path) => {
       const previousTechnos = await technosPromise;
       const dbEngine = matches[1];
       const techno = (technosSpecs as Record<string, Techno>)[dbEngine];
-      return [...previousTechnos, techno];
+
+      if (
+        previousTechnos.findIndex((item) => item.iconUrl === techno.iconUrl) ===
+        -1
+      ) {
+        return [...previousTechnos, techno];
+      }
+
+      return previousTechnos;
     },
     [] as never,
   );

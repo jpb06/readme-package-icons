@@ -11,6 +11,10 @@ jest.mock('fs-extra');
 describe('getDbIcons function', () => {
   const path = './cool';
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should return an empty array if package.json does not exist', async () => {
     mocked(pathExists).mockResolvedValueOnce(false as never);
 
@@ -40,7 +44,6 @@ describe('getDbIcons function', () => {
     mocked(readFile).mockResolvedValueOnce(prismaSchema('mysql') as never);
     mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
     mocked(readFile).mockResolvedValueOnce(prismaSchema('sqlite') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('sqlserver') as never);
 
     const result = await getDbIcons(path);
 
@@ -102,6 +105,56 @@ describe('getDbIcons function', () => {
         docUrl: 'https://www.sqlite.org/docs.html',
         iconUrl:
           'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg',
+      },
+    ]);
+  });
+
+  it('should return only distinct technos', async () => {
+    mocked(pathExists).mockResolvedValueOnce(true as never);
+    mocked(readJson).mockResolvedValueOnce(
+      packageJsonWithPrismaGenerate as never,
+    );
+    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
+    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
+    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
+    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
+    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
+
+    const result = await getDbIcons(path);
+
+    expect(readFile).toHaveBeenCalledTimes(5);
+    expect(readFile).toHaveBeenNthCalledWith(
+      1,
+      `${path}/prisma/schema.prisma`,
+      'utf-8',
+    );
+    expect(readFile).toHaveBeenNthCalledWith(
+      2,
+      `${path}/libs/nest/prisma/auth/auth-db-schema.prisma`,
+      'utf-8',
+    );
+    expect(readFile).toHaveBeenNthCalledWith(
+      3,
+      `${path}/libs/nest/prisma/main/main-db-schema.prisma`,
+      'utf-8',
+    );
+    expect(readFile).toHaveBeenNthCalledWith(
+      4,
+      `${path}/libs/nest/prisma/mission/mission-db-schema.prisma`,
+      'utf-8',
+    );
+    expect(readFile).toHaveBeenNthCalledWith(
+      5,
+      `${path}/libs/nest/prisma/books/books-db-schema.prisma`,
+      'utf-8',
+    );
+
+    expect(result).toStrictEqual([
+      {
+        dependenciesPattern: undefined,
+        docUrl: 'https://www.postgresql.org/docs/',
+        iconUrl:
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
       },
     ]);
   });
