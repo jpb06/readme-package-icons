@@ -43,7 +43,7 @@ jobs:
 
       - name: Bump package version
         id: bumping-version
-        uses: jpb06/bump-package@v2.5.3
+        uses: jpb06/bump-package@v2.5.6
         with:
           major-keywords: BREAKING CHANGE
           minor-keywords: feat,minor
