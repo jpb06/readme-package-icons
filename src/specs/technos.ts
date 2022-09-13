@@ -247,7 +247,7 @@ export const technosSpecs = {
       'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-plain.svg',
   },
   nextjs: {
-    dependenciesPattern: /^@next$|@next.*/,
+    dependenciesPattern: /^next$/,
     docUrl: 'https://nextjs.org/docs/getting-started',
     iconUrl:
       'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
