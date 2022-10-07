@@ -12,7 +12,7 @@ export const technosSpecs = {
       'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
   },
   apollo: {
-    dependenciesPattern: /^@apollo\/client$/,
+    dependenciesPattern: /.*apollo.*/,
     docUrl: 'https://www.apollographql.com/docs/react/',
     iconUrl:
       'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/apollo.png',
@@ -515,5 +515,11 @@ export const technosSpecs = {
     docUrl: 'https://github.com/colinhacks/zod#introduction',
     iconUrl:
       'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/zod.svg',
+  },
+  'graphql-codegen': {
+    dependenciesPattern: /^@graphql-codegen\/.*$/,
+    docUrl: 'https://graphql.org/learn/',
+    iconUrl:
+      'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/grapgql-codegen.svg',
   },
 };
