@@ -1,6 +1,7 @@
 import { readdir } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
+import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { getRootItemsIcons } from './get-root-items-icons';
 
 jest.mock('fs-extra');
@@ -21,8 +22,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://www.typescriptlang.org/docs/',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+          iconUrl: `${iconsRemotePath}/TypeScript.svg`,
         },
       ]),
     );
@@ -41,8 +41,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://nodejs.org/en/docs/',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+          iconUrl: `${iconsRemotePath}/NodeJS-Dark.svg`,
         },
       ]),
     );
@@ -58,8 +57,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+          iconUrl: `${iconsRemotePath}/JavaScript.svg`,
         },
       ]),
     );
@@ -78,8 +76,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://docs.npmjs.com',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg',
+          iconUrl: `${iconsRemotePath}/Npm-Dark.svg`,
         },
       ]),
     );
@@ -98,8 +95,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://yarnpkg.com/api/',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg',
+          iconUrl: `${iconsRemotePath}/Yarn-Dark.svg`,
         },
       ]),
     );
@@ -118,8 +114,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://pnpm.io/motivation',
-          iconUrl:
-            'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/pnpm.svg',
+          iconUrl: `${iconsRemotePath}/Pnpm-Dark.svg`,
         },
       ]),
     );
@@ -135,8 +130,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://docs.docker.com',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+          iconUrl: `${iconsRemotePath}/Docker.svg`,
         },
       ]),
     );
@@ -154,8 +148,7 @@ describe('getRootItemsIcons function', () => {
         {
           dependenciesPattern: undefined,
           docUrl: 'https://docs.docker.com',
-          iconUrl:
-            'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+          iconUrl: `${iconsRemotePath}/Docker.svg`,
         },
       ]),
     );

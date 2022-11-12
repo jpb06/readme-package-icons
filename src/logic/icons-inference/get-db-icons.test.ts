@@ -1,6 +1,7 @@
 import { pathExists, readFile, readJson } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
+import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { packageJsonWithPrismaGenerate } from '../../tests/mock-data/package-json-with-prisma-generate';
 import { packageJsonWithoutPrisma } from '../../tests/mock-data/package-json-without-prisma';
 import { prismaSchema } from '../../tests/mock-data/prisma-schema';
@@ -79,32 +80,27 @@ describe('getDbIcons function', () => {
         dependenciesPattern: undefined,
         docUrl:
           'https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html',
-        iconUrl:
-          'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/cockroachdb.svg',
+        iconUrl: `${iconsRemotePath}/Cockroachdb-Dark.svg`,
       },
       {
         dependenciesPattern: /^mongoose$|^mongodb$/,
         docUrl: 'https://www.mongodb.com',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+        iconUrl: `${iconsRemotePath}/MongoDB.svg`,
       },
       {
         dependenciesPattern: undefined,
         docUrl: 'https://dev.mysql.com/doc/',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+        iconUrl: `${iconsRemotePath}/MySQL-Dark.svg`,
       },
       {
         dependenciesPattern: undefined,
         docUrl: 'https://www.postgresql.org/docs/',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+        iconUrl: `${iconsRemotePath}/PostgreSQL-Dark.svg`,
       },
       {
         dependenciesPattern: undefined,
         docUrl: 'https://www.sqlite.org/docs.html',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg',
+        iconUrl: `${iconsRemotePath}/SQLite.svg`,
       },
     ]);
   });
@@ -153,8 +149,7 @@ describe('getDbIcons function', () => {
       {
         dependenciesPattern: undefined,
         docUrl: 'https://www.postgresql.org/docs/',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+        iconUrl: `${iconsRemotePath}/PostgreSQL-Dark.svg`,
       },
     ]);
   });

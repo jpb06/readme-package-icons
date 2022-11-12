@@ -1,6 +1,7 @@
 import { pathExists } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
+import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { getCiIcons } from './get-ci-icons';
 
 jest.mock('fs-extra');
@@ -19,8 +20,7 @@ describe('getCiIcons function', () => {
       {
         dependenciesPattern: undefined,
         docUrl: 'https://docs.github.com/en/actions',
-        iconUrl:
-          'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/github-actions.svg',
+        iconUrl: `${iconsRemotePath}/GithubActions-Dark.svg`,
       },
     ]);
   });
@@ -36,8 +36,7 @@ describe('getCiIcons function', () => {
       {
         dependenciesPattern: undefined,
         docUrl: 'https://circleci.com/docs',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/circleci/circleci-plain-wordmark.svg',
+        iconUrl: `${iconsRemotePath}/Circleci-Dark.svg`,
       },
     ]);
   });

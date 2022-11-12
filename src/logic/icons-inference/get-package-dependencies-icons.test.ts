@@ -1,6 +1,7 @@
 import { pathExists, readJson } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
+import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { packageJson } from '../../tests/mock-data/package-json';
 import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
 
@@ -27,26 +28,22 @@ describe('getPackageDependenciesIcons function', () => {
       {
         dependenciesPattern: /eslint.*/,
         docUrl: 'https://eslint.org/docs/latest/',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg',
+        iconUrl: `${iconsRemotePath}/Eslint-Dark.svg`,
       },
       {
         dependenciesPattern: /^jest$/,
         docUrl: 'https://jestjs.io/docs/getting-started',
-        iconUrl:
-          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg',
+        iconUrl: `${iconsRemotePath}/Jest.svg`,
       },
       {
         dependenciesPattern: /^prettier$/,
         docUrl: 'https://prettier.io/docs/en/index.html',
-        iconUrl:
-          'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/prettier.png',
+        iconUrl: `${iconsRemotePath}/Prettier-Dark.svg`,
       },
       {
         dependenciesPattern: /^@swc.*/,
         docUrl: 'https://swc.rs/docs/getting-started',
-        iconUrl:
-          'https://raw.githubusercontent.com/jpb06/readme-package-icons/main/icons/swc.svg',
+        iconUrl: `${iconsRemotePath}/Swc-Dark.svg`,
       },
     ]);
   });
