@@ -1,7 +1,7 @@
 import { pathExists } from 'fs-extra';
 
-import { technosSpecs } from '../../specs/technos';
 import { InferenceFunction } from './../../types/inference-function.type';
+import { technosSpecs } from '../../specs/technos';
 
 export const getCiIcons: InferenceFunction = async (path) => {
   const items = [];

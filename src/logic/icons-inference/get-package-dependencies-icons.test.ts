@@ -1,9 +1,9 @@
 import { pathExists, readJson } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
+import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
 import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { packageJson } from '../../tests/mock-data/package-json';
-import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
 
 jest.mock('fs-extra');
 

@@ -1,8 +1,8 @@
 import { pathExists } from 'fs-extra';
 
+import { InferenceFunction } from './../../types/inference-function.type';
 import { technosSpecs } from '../../specs/technos';
 import { getPackageJsonData } from '../package/get-package-json-data';
-import { InferenceFunction } from './../../types/inference-function.type';
 
 export const getPackageDependenciesIcons: InferenceFunction = async (path) => {
   const packageJsonExists = await pathExists(`${path}/package.json`);

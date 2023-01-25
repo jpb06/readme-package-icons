@@ -1,11 +1,11 @@
 import { pathExists, readFile, readJson } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
+import { getDbIcons } from './get-db-icons';
 import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { packageJsonWithPrismaGenerate } from '../../tests/mock-data/package-json-with-prisma-generate';
 import { packageJsonWithoutPrisma } from '../../tests/mock-data/package-json-without-prisma';
 import { prismaSchema } from '../../tests/mock-data/prisma-schema';
-import { getDbIcons } from './get-db-icons';
 
 jest.mock('fs-extra');
 
