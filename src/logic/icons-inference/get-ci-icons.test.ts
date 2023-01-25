@@ -1,8 +1,8 @@
 import { pathExists } from 'fs-extra';
 import { mocked } from 'jest-mock';
 
-import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { getCiIcons } from './get-ci-icons';
+import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 
 jest.mock('fs-extra');
 
