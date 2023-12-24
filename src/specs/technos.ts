@@ -428,4 +428,34 @@ export const technosSpecs = {
     docUrl: 'https://graphql.org/learn/',
     iconUrl: `${iconsRemotePath}/GrapgqlCodegen-Dark.svg`,
   },
+  vite: {
+    dependenciesPattern: /^vite$/,
+    docUrl: 'https://vitejs.dev/guide/',
+    iconUrl: `${iconsRemotePath}/Vite-Dark.svg`,
+  },
+  vitest: {
+    dependenciesPattern: /^vitest$/,
+    docUrl: 'https://vitest.dev/guide/',
+    iconUrl: `${iconsRemotePath}/Vitest-Dark.svg`,
+  },
+  daisyui: {
+    dependenciesPattern: /^daisyui$/,
+    docUrl: 'https://daisyui.com/docs/install/',
+    iconUrl: `${iconsRemotePath}/DaisyUi-Dark.svg`,
+  },
+  effect: {
+    dependenciesPattern: /^effect$/,
+    docUrl: 'https://www.effect.website/docs/quickstart',
+    iconUrl: `${iconsRemotePath}/Effect-Dark.svg`,
+  },
+  framerMotion: {
+    dependenciesPattern: /^framer-motion$/,
+    docUrl: 'https://www.framer.com/motion/introduction/',
+    iconUrl: `${iconsRemotePath}/FramerMotion-Dark.svg`,
+  },
+  temporal: {
+    dependenciesPattern: /^@temporalio.*/,
+    docUrl: 'https://docs.temporal.io/',
+    iconUrl: `${iconsRemotePath}/Temporal-Dark.svg`,
+  },
 };
