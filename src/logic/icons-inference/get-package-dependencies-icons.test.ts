@@ -1,17 +1,21 @@
 import { pathExists, readJson } from 'fs-extra';
-import { mocked } from 'jest-mock';
+import { describe, it, expect, vi } from 'vitest';
 
-import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
 import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { packageJson } from '../../tests/mock-data/package-json';
 
-jest.mock('fs-extra');
+import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
+
+vi.mock('fs-extra', () => ({
+  pathExists: vi.fn(),
+  readJson: vi.fn(),
+}));
 
 describe('getPackageDependenciesIcons function', () => {
   const path = './cool';
 
   it('should return an empty array if package.json does not exist', async () => {
-    mocked(pathExists).mockResolvedValueOnce(false as never);
+    vi.mocked(pathExists).mockResolvedValueOnce(false as never);
 
     const result = await getPackageDependenciesIcons(path);
 
@@ -19,8 +23,8 @@ describe('getPackageDependenciesIcons function', () => {
   });
 
   it('should get matching technos', async () => {
-    mocked(pathExists).mockResolvedValueOnce(true as never);
-    mocked(readJson).mockResolvedValueOnce(packageJson as never);
+    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
+    vi.mocked(readJson).mockResolvedValueOnce(packageJson as never);
 
     const result = await getPackageDependenciesIcons(path);
 

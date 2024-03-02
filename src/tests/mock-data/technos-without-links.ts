@@ -1,6 +1,6 @@
 import { Techno } from '../../specs/technos';
 
-export const technosWithoutLinks: Array<Techno> = [
+export const technosWithoutLinks: Techno[] = [
   {
     dependenciesPattern: /esbuild.*/,
     iconUrl:

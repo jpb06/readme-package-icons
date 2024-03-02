@@ -1,15 +1,17 @@
 import { readFile } from 'fs-extra';
-import { mocked } from 'jest-mock';
+import { describe, it, expect, vi } from 'vitest';
 
 import { ensureReadmePlaceholders } from './ensure-readme-placeholders';
 
-jest.mock('fs-extra');
+vi.mock('fs-extra', () => ({
+  readFile: vi.fn(),
+}));
 
 describe('ensureReadmePlaceholders function', () => {
   const path = './repo/myRepo';
 
   it('should throw when file contains no placeholders', async () => {
-    mocked(readFile).mockResolvedValueOnce('yolo' as never);
+    vi.mocked(readFile).mockResolvedValueOnce('yolo' as never);
 
     await expect(ensureReadmePlaceholders(path)).rejects.toThrow(
       'Missing placeholders in ./repo/myRepo',
@@ -17,7 +19,7 @@ describe('ensureReadmePlaceholders function', () => {
   });
 
   it('should throw when file does not contain start placeholder', async () => {
-    mocked(readFile).mockResolvedValueOnce(
+    vi.mocked(readFile).mockResolvedValueOnce(
       'yolo\n<!-- readme-package-icons end -->\ncool' as never,
     );
 
@@ -27,7 +29,7 @@ describe('ensureReadmePlaceholders function', () => {
   });
 
   it('should throw when file does not contain end placeholder', async () => {
-    mocked(readFile).mockResolvedValueOnce(
+    vi.mocked(readFile).mockResolvedValueOnce(
       'yolo\n<!-- readme-package-icons start -->\ncool' as never,
     );
 
@@ -37,7 +39,7 @@ describe('ensureReadmePlaceholders function', () => {
   });
 
   it('should not throw when file contains placeholders', async () => {
-    mocked(readFile).mockResolvedValueOnce(
+    vi.mocked(readFile).mockResolvedValueOnce(
       'yolo\n<!-- readme-package-icons start -->\ncool<!-- readme-package-icons end -->' as never,
     );
 

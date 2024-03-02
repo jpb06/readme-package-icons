@@ -22,6 +22,8 @@ export const getRootItemsIcons: InferenceFunction = async (path) => {
     items.push(technosSpecs.yarn);
   } else if (files.includes('pnpm-lock.yaml')) {
     items.push(technosSpecs.pnpm);
+  } else if (files.includes('bun.lockb')) {
+    items.push(technosSpecs.bun);
   }
 
   if (files.includes('fly.toml')) {

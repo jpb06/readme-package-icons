@@ -4,7 +4,10 @@ import yargs from 'yargs/yargs';
 
 import { GenerateReadmeIconsArgs } from '../../workflows/generate-readme-icons';
 
-type Argv = { p: string; h: number };
+interface Argv {
+  p: string;
+  h: number;
+}
 
 export const validateArguments = (): GenerateReadmeIconsArgs => {
   const argv = yargs(hideBin(process.argv))

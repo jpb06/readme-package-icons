@@ -1,16 +1,16 @@
 import { readJson } from 'fs-extra';
 
-type PackageJsonData = {
-  dependencies: Array<string>;
+interface PackageJsonData {
+  dependencies: string[];
   scripts: Record<string, string>;
-};
+}
 
 export const getPackageJsonData = async (
   path: string,
 ): Promise<PackageJsonData> => {
   const json = await readJson(`${path}/package.json`);
 
-  let dependencies: Array<string> = [];
+  let dependencies: string[] = [];
   if (json.dependencies) {
     dependencies = [...dependencies, ...Object.keys(json.dependencies)];
   }

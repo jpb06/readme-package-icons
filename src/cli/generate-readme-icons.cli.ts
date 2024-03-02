@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { validateArguments } from './args/generate-readme-icons.arguments';
 import {
   displayError,
   displaySuccess,
 } from '../logic/console/console.messages';
 import { generateReadmeIcons } from '../workflows/generate-readme-icons';
+
+import { validateArguments } from './args/generate-readme-icons.arguments';
 
 /* istanbul ignore file */
 

@@ -1,6 +1,6 @@
 import { Techno } from '../../specs/technos';
 
-export const technosWithLinks: Array<Techno> = [
+export const technosWithLinks: Techno[] = [
   {
     dependenciesPattern: /esbuild.*/,
     docUrl: 'https://esbuild.github.io/getting-started/#install-esbuild',
