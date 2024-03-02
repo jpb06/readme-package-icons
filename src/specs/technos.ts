@@ -1,10 +1,10 @@
 import { iconsRemotePath } from '../constants/icons-remote-path.constant';
 
-export type Techno = {
+export interface Techno {
   docUrl?: string;
   iconUrl: string;
   dependenciesPattern?: RegExp;
-};
+}
 
 export const technosSpecs = {
   angular: {
@@ -457,5 +457,20 @@ export const technosSpecs = {
     dependenciesPattern: /^@temporalio.*/,
     docUrl: 'https://docs.temporal.io/',
     iconUrl: `${iconsRemotePath}/Temporal-Dark.svg`,
+  },
+  bun: {
+    dependenciesPattern: undefined,
+    docUrl: 'https://bun.sh/docs',
+    iconUrl: `${iconsRemotePath}/Bun-Dark.svg`,
+  },
+  sentry: {
+    dependenciesPattern: /^@sentry\/.*$/,
+    docUrl: 'https://docs.sentry.io/platforms/node/',
+    iconUrl: `${iconsRemotePath}/Sentry-Dark.svg`,
+  },
+  trpc: {
+    dependenciesPattern: /^@trpc\/.*$/,
+    docUrl: 'https://trpc.io/docs',
+    iconUrl: `${iconsRemotePath}/Trpc.svg`,
   },
 };

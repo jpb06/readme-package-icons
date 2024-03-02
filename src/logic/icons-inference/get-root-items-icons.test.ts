@@ -1,16 +1,19 @@
 import { readdir } from 'fs-extra';
-import { mocked } from 'jest-mock';
+import { describe, it, expect, vi } from 'vitest';
 
-import { getRootItemsIcons } from './get-root-items-icons';
 import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 
-jest.mock('fs-extra');
+import { getRootItemsIcons } from './get-root-items-icons';
+
+vi.mock('fs-extra', () => ({
+  readdir: vi.fn(),
+}));
 
 describe('getRootItemsIcons function', () => {
   const path = './repos/myRepo';
 
   it('should return typescript if there is a tsconfig file', async () => {
-    mocked(readdir).mockResolvedValueOnce([
+    vi.mocked(readdir).mockResolvedValueOnce([
       'package.json',
       'tsconfig.json',
     ] as never);
@@ -29,7 +32,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return node', async () => {
-    mocked(readdir).mockResolvedValueOnce([
+    vi.mocked(readdir).mockResolvedValueOnce([
       'package.json',
       'tsconfig.json',
     ] as never);
@@ -48,7 +51,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return javascript', async () => {
-    mocked(readdir).mockResolvedValueOnce(['package.json'] as never);
+    vi.mocked(readdir).mockResolvedValueOnce(['package.json'] as never);
 
     const result = await getRootItemsIcons(path);
 
@@ -64,7 +67,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return npm', async () => {
-    mocked(readdir).mockResolvedValueOnce([
+    vi.mocked(readdir).mockResolvedValueOnce([
       'package.json',
       'package-lock.json',
     ] as never);
@@ -83,7 +86,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return yarn', async () => {
-    mocked(readdir).mockResolvedValueOnce([
+    vi.mocked(readdir).mockResolvedValueOnce([
       'package.json',
       'yarn.lock',
     ] as never);
@@ -102,7 +105,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return pnpm', async () => {
-    mocked(readdir).mockResolvedValueOnce([
+    vi.mocked(readdir).mockResolvedValueOnce([
       'package.json',
       'pnpm-lock.yaml',
     ] as never);
@@ -121,7 +124,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return docker when a Dockerfile is present', async () => {
-    mocked(readdir).mockResolvedValueOnce(['Dockerfile'] as never);
+    vi.mocked(readdir).mockResolvedValueOnce(['Dockerfile'] as never);
 
     const result = await getRootItemsIcons(path);
 
@@ -137,7 +140,7 @@ describe('getRootItemsIcons function', () => {
   });
 
   it('should return docker when a Docker compose file is present', async () => {
-    mocked(readdir).mockResolvedValueOnce([
+    vi.mocked(readdir).mockResolvedValueOnce([
       'docker-compose.backend.yml',
     ] as never);
 

@@ -1,16 +1,17 @@
 import { pathExists } from 'fs-extra';
-import { mocked } from 'jest-mock';
+import { describe, it, expect, vi } from 'vitest';
 
-import { getCiIcons } from './get-ci-icons';
 import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 
-jest.mock('fs-extra');
+import { getCiIcons } from './get-ci-icons';
+
+vi.mock('fs-extra');
 
 describe('getCiIcons function', () => {
   const path = './cool';
 
   it('should return github actions icon', async () => {
-    mocked(pathExists)
+    vi.mocked(pathExists)
       .mockResolvedValueOnce(true as never)
       .mockResolvedValueOnce(false as never);
 
@@ -26,7 +27,7 @@ describe('getCiIcons function', () => {
   });
 
   it('should return circle ci icon', async () => {
-    mocked(pathExists)
+    vi.mocked(pathExists)
       .mockResolvedValueOnce(false as never)
       .mockResolvedValueOnce(true as never);
 

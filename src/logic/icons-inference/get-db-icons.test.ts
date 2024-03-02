@@ -1,23 +1,28 @@
 import { pathExists, readFile, readJson } from 'fs-extra';
-import { mocked } from 'jest-mock';
+import { describe, it, beforeEach, expect, vi } from 'vitest';
 
-import { getDbIcons } from './get-db-icons';
 import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
 import { packageJsonWithPrismaGenerate } from '../../tests/mock-data/package-json-with-prisma-generate';
 import { packageJsonWithoutPrisma } from '../../tests/mock-data/package-json-without-prisma';
 import { prismaSchema } from '../../tests/mock-data/prisma-schema';
 
-jest.mock('fs-extra');
+import { getDbIcons } from './get-db-icons';
+
+vi.mock('fs-extra', () => ({
+  pathExists: vi.fn(),
+  readFile: vi.fn(),
+  readJson: vi.fn(),
+}));
 
 describe('getDbIcons function', () => {
   const path = './cool';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should return an empty array if package.json does not exist', async () => {
-    mocked(pathExists).mockResolvedValueOnce(false as never);
+    vi.mocked(pathExists).mockResolvedValueOnce(false as never);
 
     const result = await getDbIcons(path);
 
@@ -25,8 +30,10 @@ describe('getDbIcons function', () => {
   });
 
   it('should return an empty array if dependencies do not contain prisma', async () => {
-    mocked(pathExists).mockResolvedValueOnce(true as never);
-    mocked(readJson).mockResolvedValueOnce(packageJsonWithoutPrisma as never);
+    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
+    vi.mocked(readJson).mockResolvedValueOnce(
+      packageJsonWithoutPrisma as never,
+    );
 
     const result = await getDbIcons(path);
 
@@ -34,17 +41,19 @@ describe('getDbIcons function', () => {
   });
 
   it('should return technos based on providers in prisma schemas', async () => {
-    mocked(pathExists).mockResolvedValueOnce(true as never);
-    mocked(readJson).mockResolvedValueOnce(
+    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
+    vi.mocked(readJson).mockResolvedValueOnce(
       packageJsonWithPrismaGenerate as never,
     );
-    mocked(readFile).mockResolvedValueOnce(
+    vi.mocked(readFile).mockResolvedValueOnce(
       prismaSchema('cockroachdb') as never,
     );
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('mongodb') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('mysql') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('sqlite') as never);
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('mongodb') as never);
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('mysql') as never);
+    vi.mocked(readFile).mockResolvedValueOnce(
+      prismaSchema('postgresql') as never,
+    );
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('sqlite') as never);
 
     const result = await getDbIcons(path);
 
@@ -106,15 +115,25 @@ describe('getDbIcons function', () => {
   });
 
   it('should return only distinct technos', async () => {
-    mocked(pathExists).mockResolvedValueOnce(true as never);
-    mocked(readJson).mockResolvedValueOnce(
+    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
+    vi.mocked(readJson).mockResolvedValueOnce(
       packageJsonWithPrismaGenerate as never,
     );
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
-    mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql') as never);
+    vi.mocked(readFile).mockResolvedValueOnce(
+      prismaSchema('postgresql') as never,
+    );
+    vi.mocked(readFile).mockResolvedValueOnce(
+      prismaSchema('postgresql') as never,
+    );
+    vi.mocked(readFile).mockResolvedValueOnce(
+      prismaSchema('postgresql') as never,
+    );
+    vi.mocked(readFile).mockResolvedValueOnce(
+      prismaSchema('postgresql') as never,
+    );
+    vi.mocked(readFile).mockResolvedValueOnce(
+      prismaSchema('postgresql') as never,
+    );
 
     const result = await getDbIcons(path);
 

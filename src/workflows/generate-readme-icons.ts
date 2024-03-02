@@ -3,10 +3,10 @@ import { buildIconsList } from '../logic/icons-list/build-icons-list';
 import { ensureReadmePlaceholders } from '../logic/readme/ensure-readme-placeholders';
 import { injectIconsToPackage } from '../logic/readme/inject-icons-to-package';
 
-export type GenerateReadmeIconsArgs = {
+export interface GenerateReadmeIconsArgs {
   path: string;
   iconsHeight: number;
-};
+}
 
 export const generateReadmeIcons = async ({
   path = '.',

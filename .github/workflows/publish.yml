@@ -1,4 +1,4 @@
-name: Publish
+name: ⚡ Publish
 
 on:
   push:
@@ -6,54 +6,49 @@ on:
       - main
 
 jobs:
-  install:
+  publish:
+    name: 🛩️ Publish
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
 
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2.2.4
-        with:
-          version: latest
+      - name: 📦 Setup bun
+        uses: oven-sh/setup-bun@v1
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
+          cache: 'bun'
+          cache-dependency-path: ./package.json
 
-      - name: Installing dependencies
-        run: pnpm install --frozen-lockfile
+      - name: 📥 Install deps
+        run: bun install --frozen-lockfile
 
-      - name: Tests
-        run: pnpm test-ci
+      - name: 🥁 Generating coverage badges
+        uses: jpb06/coverage-badges-action@latest
 
-      - name: Generating coverage badges
-        uses: jpb06/jest-badges-action@v1.9.5
-
-      - name: Bump package version
+      - name: ✏️ Bump package version
         id: bumping-version
-        uses: jpb06/bump-package@v2.5.8
+        uses: jpb06/bump-package@latest
         with:
           major-keywords: BREAKING CHANGE
           minor-keywords: feat,minor
           patch-keywords: fix,chore
           should-default-to-patch: true
+          commit-user: jpb06
+          commit-user-email: jpb.06@outlook.com
 
-      - name: Building package
+      - name: ⚙️ Building package
         run: pnpm build
 
-      - name: Publish package
+      - name: 🚀 Publish package
         if: steps.bumping-version.outputs.bump-performed == 'true'
         run: npm publish ./dist --access public
         env:

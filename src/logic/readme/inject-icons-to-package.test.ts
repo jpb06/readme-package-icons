@@ -1,15 +1,18 @@
 import { readFile, writeFile } from 'fs-extra';
-import { mocked } from 'jest-mock';
+import { describe, it, expect, vi } from 'vitest';
 
 import { injectIconsToPackage } from './inject-icons-to-package';
 
-jest.mock('fs-extra');
+vi.mock('fs-extra', () => ({
+  readFile: vi.fn(),
+  writeFile: vi.fn(),
+}));
 
 describe('injectIconsToPackage function', () => {
   const path = './repo/myRepo';
 
   it('should replace everything between placeholders', async () => {
-    mocked(readFile).mockResolvedValueOnce(
+    vi.mocked(readFile).mockResolvedValueOnce(
       'yolo\n<!-- readme-package-icons start -->\ncool<!-- readme-package-icons end -->bro' as never,
     );
 

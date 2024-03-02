@@ -1,37 +1,51 @@
-import chalk from 'chalk';
+import { describe, it, beforeEach, expect, vi } from 'vitest';
 
-import { displayError, displaySuccess } from './console.messages';
+import { mockChalk } from '../../tests/mocks/chalk.mock';
+import { mockConsole } from '../../tests/mocks/console.mock';
 
-jest.mock('chalk', () => ({
-  cyanBright: jest.fn(),
-  greenBright: jest.fn(),
-  redBright: jest.fn(),
-  whiteBright: jest.fn(),
-  yellowBright: jest.fn(),
+mockConsole({
+  info: vi.fn(),
+  error: vi.fn(),
+});
+mockChalk({
+  cyanBright: vi.fn(),
+  greenBright: vi.fn(),
+  redBright: vi.fn(),
+  whiteBright: vi.fn(),
+  yellowBright: vi.fn(),
   underline: {
-    cyanBright: jest.fn(),
+    cyanBright: vi.fn(),
   },
-}));
-global.console = { info: jest.fn(), error: jest.fn() } as unknown as Console;
+});
 
 describe('displaySuccess function', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   describe('displaySuccess function', () => {
-    it('should call console.info', () => {
+    it('should call console.info', async () => {
+      const { displaySuccess } = await import('./console.messages');
+
       displaySuccess(5);
 
       // eslint-disable-next-line no-console
       expect(console.info).toHaveBeenCalledTimes(1);
     });
 
-    it('should display the package name in cyan', () => {
+    it('should display the package name in cyan', async () => {
+      const chalk = await import('chalk');
+      const { displaySuccess } = await import('./console.messages');
+
       displaySuccess(5);
 
       expect(chalk.cyanBright).toHaveBeenCalledWith('readme-package-icons');
     });
 
-    it('should display a success message in green with the number of icons added', () => {
+    it('should display a success message in green with the number of icons added', async () => {
+      const chalk = await import('chalk');
+      const { displaySuccess } = await import('./console.messages');
+
       displaySuccess(5);
 
       expect(chalk.greenBright).toHaveBeenCalledTimes(1);
@@ -45,19 +59,27 @@ describe('displaySuccess function', () => {
   describe('displayError function', () => {
     const errorMessage = 'oh no!';
 
-    it('should call console.error', () => {
+    it('should call console.error', async () => {
+      const { displayError } = await import('./console.messages');
+
       displayError({ stack: errorMessage });
 
       expect(console.error).toHaveBeenCalledTimes(1);
     });
 
-    it('should display the package name in cyan', () => {
+    it('should display the package name in cyan', async () => {
+      const chalk = await import('chalk');
+      const { displayError } = await import('./console.messages');
+
       displayError({ stack: errorMessage });
 
       expect(chalk.cyanBright).toHaveBeenCalledWith('readme-package-icons');
     });
 
-    it('should display the error message in red', () => {
+    it('should display the error message in red', async () => {
+      const chalk = await import('chalk');
+      const { displayError } = await import('./console.messages');
+
       displayError({ stack: errorMessage });
 
       expect(chalk.redBright).toHaveBeenCalledWith(errorMessage);
