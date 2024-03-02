@@ -32,7 +32,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
-          cache: 'bun'
+          # cache: 'bun'
           cache-dependency-path: ./package.json
 
       - name: 📥 Install deps
@@ -58,7 +58,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
-          cache: 'bun'
+          # cache: 'bun'
           cache-dependency-path: ./package.json
 
       - name: 📥 Install deps
@@ -84,7 +84,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
-          cache: 'bun'
+          # cache: 'bun'
           cache-dependency-path: ./package.json
 
       - name: 📥 Install deps
