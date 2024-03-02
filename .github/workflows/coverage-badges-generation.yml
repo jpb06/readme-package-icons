@@ -27,14 +27,14 @@ jobs:
         with:
           node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
+          # cache: 'bun'
           cache-dependency-path: ./package.json
 
       - name: 📥 Install deps
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: 🔍 Tests
-        run: pnpm test-ci
+        run: bun run test-ci
 
       - name: 🥁 Generating coverage badges
         uses: jpb06/coverage-badges-action@latest
