@@ -1,9 +1,10 @@
 name: ⚡ Publish
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['⚡ Coverage badges generation']
+    types:
+      - completed
 
 jobs:
   publish:
@@ -30,9 +31,6 @@ jobs:
 
       - name: 📥 Install deps
         run: bun install --frozen-lockfile
-
-      - name: 🥁 Generating coverage badges
-        uses: jpb06/coverage-badges-action@latest
 
       - name: ✏️ Bump package version
         id: bumping-version
