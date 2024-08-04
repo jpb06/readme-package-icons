@@ -29,7 +29,6 @@ describe('displaySuccess function', () => {
 
       displaySuccess(5);
 
-      // eslint-disable-next-line no-console
       expect(console.info).toHaveBeenCalledTimes(1);
     });
 

@@ -1,8 +1,12 @@
 {
-  "eslint.run": "onSave",
+  "biome.enabled": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.organizeImports.biome": "explicit"
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "biomejs.biome",
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }

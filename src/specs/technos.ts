@@ -32,6 +32,11 @@ export const technosSpecs = {
     docUrl: 'https://babeljs.io/docs/en/',
     iconUrl: `${iconsRemotePath}/Babel-Dark.svg`,
   },
+  biome: {
+    dependenciesPattern: /^@biomejs\/biome$/,
+    docUrl: 'https://biomejs.dev/guides/getting-started/',
+    iconUrl: `${iconsRemotePath}/Biome-Dark.svg`,
+  },
   'circle-ci': {
     dependenciesPattern: undefined,
     docUrl: 'https://circleci.com/docs',
@@ -232,6 +237,11 @@ export const technosSpecs = {
     dependenciesPattern: /^nx$|^@nrwl.*/,
     docUrl: 'https://nx.dev/getting-started/intro',
     iconUrl: `${iconsRemotePath}/Nx-Dark.svg`,
+  },
+  pandacss: {
+    dependenciesPattern: /^@pandacss\/dev$/,
+    docUrl: 'https://panda-css.com/docs/overview/getting-started/',
+    iconUrl: `${iconsRemotePath}/PandaCss.svg`,
   },
   passport: {
     dependenciesPattern: /^passport.*/,

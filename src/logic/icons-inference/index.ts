@@ -1,5 +1,4 @@
 import { Techno } from '../../specs/technos';
-
 import { getCiIcons } from './get-ci-icons';
 import { getDbIcons } from './get-db-icons';
 import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
