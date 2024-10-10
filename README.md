@@ -24,24 +24,6 @@ Generating a list of icons from dependencies.
 
 <!-- readme-package-icons end -->
 
-## ⚡ Purpose
-
-I wanted people visiting my repos to catch at first glance the stack used in them. What's better than icons for this?
-
-### 🔶 Usage
-
-This package exposes one function named `generateReadmeIcons` that will check the content of `package.json` and a few others things (whether a `tsconfig.json` file exists for example). It will then generate html code that will be inserted between two placeholder tags in `README.md`.
-
-#### 🌀 Amending readme
-
-The first step is to add placeholder tags into `README.md`:
-
-```markdown
-# my-package
-
-<!-- readme-package-icons start -->
-<!-- readme-package-icons end -->
-
 Blabla
 ```
 
