@@ -1,9 +1,9 @@
-import { readFile, writeFile } from 'fs-extra';
-import { describe, it, expect, vi } from 'vitest';
+import { readFile, writeFile } from 'node:fs/promises';
+import { describe, expect, it, vi } from 'vitest';
 
-import { injectIconsToPackage } from './inject-icons-to-package';
+import { injectIconsToPackage } from './inject-icons-to-package.js';
 
-vi.mock('fs-extra', () => ({
+vi.mock('node:fs/promises', () => ({
   readFile: vi.fn(),
   writeFile: vi.fn(),
 }));
@@ -13,7 +13,7 @@ describe('injectIconsToPackage function', () => {
 
   it('should replace everything between placeholders', async () => {
     vi.mocked(readFile).mockResolvedValueOnce(
-      'yolo\n<!-- readme-package-icons start -->\ncool<!-- readme-package-icons end -->bro' as never,
+      'yolo\n<!-- readme-package-icons start -->\ncool<!-- readme-package-icons end -->bro',
     );
 
     await injectIconsToPackage(path, 'content');

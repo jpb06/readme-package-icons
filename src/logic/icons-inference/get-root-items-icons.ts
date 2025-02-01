@@ -1,7 +1,7 @@
-import { readdir } from 'fs-extra';
+import { readdir } from 'node:fs/promises';
 
-import { technosSpecs } from '../../specs/technos';
-import { InferenceFunction } from '../../types/inference-function.type';
+import { technosSpecs } from '@specs';
+import type { InferenceFunction } from '@type';
 
 export const getRootItemsIcons: InferenceFunction = async (path) => {
   const files = (await readdir(path)).map((el) => el.toLocaleLowerCase());
@@ -22,7 +22,7 @@ export const getRootItemsIcons: InferenceFunction = async (path) => {
     items.push(technosSpecs.yarn);
   } else if (files.includes('pnpm-lock.yaml')) {
     items.push(technosSpecs.pnpm);
-  } else if (files.includes('bun.lockb')) {
+  } else if (files.includes('bun.lockb') || files.includes('bun.lock')) {
     items.push(technosSpecs.bun);
   }
 

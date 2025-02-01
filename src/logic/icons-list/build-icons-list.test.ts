@@ -1,9 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { technosWithLinks } from '../../tests/mock-data/technos-with-links';
-import { technosWithoutLinks } from '../../tests/mock-data/technos-without-links';
+import { technosWithLinks, technosWithoutLinks } from '@tests/mock-data';
 
-import { buildIconsList } from './build-icons-list';
+import { buildIconsList } from './build-icons-list.js';
 
 describe('buildIconsList function', () => {
   it('should generate images without links', () => {

@@ -1,9 +1,9 @@
-import chalk from 'chalk';
+import colors from 'picocolors';
 
 export const displaySuccess = (iconsCount: number): void => {
-  const summary = `${chalk.yellowBright(iconsCount)} icons added`;
+  const summary = `${colors.yellowBright(iconsCount)} icons added`;
   console.info(
-    `${chalk.cyanBright('readme-package-icons')} 🚀 - ${chalk.greenBright(
+    `${colors.cyanBright('readme-package-icons')} 🚀 - ${colors.greenBright(
       'Readme updated',
     )} (${summary})`,
   );
@@ -11,7 +11,7 @@ export const displaySuccess = (iconsCount: number): void => {
 
 export const displayError = (err: unknown): void => {
   console.error(
-    `${chalk.cyanBright('readme-package-icons')} ❌ - ${chalk.redBright(
+    `${colors.cyanBright('readme-package-icons')} ❌ - ${colors.redBright(
       (err as { stack: string }).stack,
     )}`,
   );

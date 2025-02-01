@@ -1,7 +1,7 @@
-import { inferIcons } from '../logic/icons-inference';
-import { buildIconsList } from '../logic/icons-list/build-icons-list';
-import { ensureReadmePlaceholders } from '../logic/readme/ensure-readme-placeholders';
-import { injectIconsToPackage } from '../logic/readme/inject-icons-to-package';
+import { inferIcons } from '../logic/icons-inference/index.js';
+import { buildIconsList } from '../logic/icons-list/build-icons-list.js';
+import { ensureReadmePlaceholders } from '../logic/readme/ensure-readme-placeholders.js';
+import { injectIconsToPackage } from '../logic/readme/inject-icons-to-package.js';
 
 export interface GenerateReadmeIconsArgs {
   path: string;

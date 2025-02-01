@@ -1,14 +1,15 @@
-import { readJson } from 'fs-extra';
+import { readJson } from '@deps/fs';
 
 interface PackageJsonData {
   dependencies: string[];
+  devDependencies?: string[];
   scripts: Record<string, string>;
 }
 
 export const getPackageJsonData = async (
   path: string,
 ): Promise<PackageJsonData> => {
-  const json = await readJson(`${path}/package.json`);
+  const json = await readJson<PackageJsonData>(`${path}/package.json`);
 
   let dependencies: string[] = [];
   if (json.dependencies) {

@@ -1,49 +1,51 @@
-import { pathExists, readFile } from 'fs-extra';
+import { readFile } from 'node:fs/promises';
 
-import { Techno, technosSpecs } from '../../specs/technos';
-import { InferenceFunction } from '../../types/inference-function.type';
-import { getPackageJsonData } from '../package/get-package-json-data';
-import { prismaGenerateRegex } from '../regex/prisma-generate.regex';
-import { prismaProviderRegex } from '../regex/prisma-provider.regex';
+import { fileExists } from '@deps/fs';
+import { type Techno, technosSpecs } from '@specs';
+import type { InferenceFunction } from '@type';
+
+import { getPackageJsonData } from '../package/get-package-json-data.js';
+import { prismaGenerateRegex } from '../regex/prisma-generate.regex.js';
+import { prismaProviderRegex } from '../regex/prisma-provider.regex.js';
 
 export const getDbIcons: InferenceFunction = async (path) => {
-  const packageJsonExists = await pathExists(`${path}/package.json`);
+  const packageJsonExists = await fileExists(`${path}/package.json`);
   if (!packageJsonExists) {
     return [];
   }
 
-  const json = await getPackageJsonData(path);
-  if (!json.dependencies.includes('prisma')) {
+  const packageJson = await getPackageJsonData(path);
+  if (!packageJson.dependencies.includes('prisma')) {
     return [];
   }
 
-  return Object.values(json.scripts).reduce<Promise<Techno[]>>(
-    async (technosPromise, command) => {
-      const res = command.match(prismaGenerateRegex);
-      if (!res || res.length !== 4) {
-        return technosPromise;
-      }
+  const scripts = Object.values(packageJson.scripts);
+  const prismaConfigFiles = scripts.reduce<string[]>((result, command) => {
+    const matches = command.match(prismaGenerateRegex);
+    if (matches && matches.length === 4) {
+      const prismaConfigPath = `${path}/${matches[3] ? matches[3] : 'prisma/schema.prisma'}`;
 
-      const value = `${path}/${res[3] ? res[3] : 'prisma/schema.prisma'}`;
-      const raw = await readFile(value, 'utf-8');
-      const matches = raw.match(prismaProviderRegex);
-      if (!matches) {
-        return technosPromise;
-      }
+      return [...result, prismaConfigPath];
+    }
 
-      const previousTechnos = await technosPromise;
-      const dbEngine = matches[1];
-      const techno = (technosSpecs as Record<string, Techno>)[dbEngine];
+    return result;
+  }, []);
 
-      if (
-        previousTechnos.findIndex((item) => item.iconUrl === techno.iconUrl) ===
-        -1
-      ) {
-        return [...previousTechnos, techno];
-      }
-
-      return previousTechnos;
-    },
-    [] as never,
+  const prismaConfigFilesContent = await Promise.all(
+    prismaConfigFiles.map((path) => readFile(path, 'utf-8')),
   );
+
+  return prismaConfigFilesContent.reduce<Techno[]>((result, fileContent) => {
+    const matches = fileContent.match(prismaProviderRegex);
+    if (!matches) {
+      return result;
+    }
+
+    const techno = (technosSpecs as Record<string, Techno>)[matches[1]];
+    if (result.some((el) => el.iconUrl === techno.iconUrl)) {
+      return result;
+    }
+
+    return [...result, techno];
+  }, []);
 };
