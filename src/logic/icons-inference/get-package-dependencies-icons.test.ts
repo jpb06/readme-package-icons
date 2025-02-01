@@ -1,21 +1,21 @@
-import { pathExists, readJson } from 'fs-extra';
-import { describe, it, expect, vi } from 'vitest';
+import { readFile, stat } from 'node:fs/promises';
+import { describe, expect, it, vi } from 'vitest';
 
-import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
-import { packageJson } from '../../tests/mock-data/package-json';
+import { iconsRemotePath } from '@constants';
+import { packageJson } from '@tests/mock-data';
 
-import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
+import { getPackageDependenciesIcons } from './get-package-dependencies-icons.js';
 
-vi.mock('fs-extra', () => ({
-  pathExists: vi.fn(),
-  readJson: vi.fn(),
+vi.mock('node:fs/promises', () => ({
+  stat: vi.fn(),
+  readFile: vi.fn(),
 }));
 
 describe('getPackageDependenciesIcons function', () => {
   const path = './cool';
 
   it('should return an empty array if package.json does not exist', async () => {
-    vi.mocked(pathExists).mockResolvedValueOnce(false as never);
+    vi.mocked(stat).mockRejectedValueOnce(false);
 
     const result = await getPackageDependenciesIcons(path);
 
@@ -23,8 +23,10 @@ describe('getPackageDependenciesIcons function', () => {
   });
 
   it('should get matching technos', async () => {
-    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
-    vi.mocked(readJson).mockResolvedValueOnce(packageJson as never);
+    vi.mocked(stat).mockResolvedValueOnce({
+      isFile: () => true,
+    } as never);
+    vi.mocked(readFile).mockResolvedValueOnce(JSON.stringify(packageJson));
 
     const result = await getPackageDependenciesIcons(path);
 

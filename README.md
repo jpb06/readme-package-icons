@@ -64,6 +64,12 @@ Then we can use it by using the `-p` option:
 npm run generateReadmeIcons -p /Users/jpb06/repos/myRepo
 ```
 
+You can also use the esm version:
+
+```bash
+npm run generateReadmeIconsEsm -p /Users/jpb06/repos/myRepo
+```
+
 #### 🌀 node
 
 This package exposes the function as well:

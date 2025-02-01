@@ -1,8 +1,9 @@
-import { Techno } from '../../specs/technos';
-import { getCiIcons } from './get-ci-icons';
-import { getDbIcons } from './get-db-icons';
-import { getPackageDependenciesIcons } from './get-package-dependencies-icons';
-import { getRootItemsIcons } from './get-root-items-icons';
+import type { Techno } from '@specs';
+
+import { getCiIcons } from './get-ci-icons.js';
+import { getDbIcons } from './get-db-icons.js';
+import { getPackageDependenciesIcons } from './get-package-dependencies-icons.js';
+import { getRootItemsIcons } from './get-root-items-icons.js';
 
 export const inferIcons = async (path: string): Promise<Techno[]> => {
   const ciIcons = await getCiIcons(path);

@@ -1,9 +1,9 @@
-import { iconsRemotePath } from '../constants/icons-remote-path.constant';
+import { iconsRemotePath } from '@constants';
 
 export interface Techno {
   docUrl?: string;
   iconUrl: string;
-  dependenciesPattern?: RegExp;
+  dependenciesPattern?: RegExp | undefined;
 }
 
 export const technosSpecs = {

@@ -1,12 +1,11 @@
-import { pathExists } from 'fs-extra';
+import { fileExists } from '@deps/fs';
+import { technosSpecs } from '@specs';
+import type { InferenceFunction } from '@type';
 
-import { technosSpecs } from '../../specs/technos';
-import { getPackageJsonData } from '../package/get-package-json-data';
-
-import { InferenceFunction } from './../../types/inference-function.type';
+import { getPackageJsonData } from '../package/get-package-json-data.js';
 
 export const getPackageDependenciesIcons: InferenceFunction = async (path) => {
-  const packageJsonExists = await pathExists(`${path}/package.json`);
+  const packageJsonExists = await fileExists(`${path}/package.json`);
   if (!packageJsonExists) {
     return [];
   }

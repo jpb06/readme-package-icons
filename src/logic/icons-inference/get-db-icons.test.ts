@@ -1,17 +1,19 @@
-import { pathExists, readFile, readJson } from 'fs-extra';
-import { describe, it, beforeEach, expect, vi } from 'vitest';
+import { readFile, stat } from 'node:fs/promises';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
-import { packageJsonWithPrismaGenerate } from '../../tests/mock-data/package-json-with-prisma-generate';
-import { packageJsonWithoutPrisma } from '../../tests/mock-data/package-json-without-prisma';
-import { prismaSchema } from '../../tests/mock-data/prisma-schema';
+import {
+  packageJsonWithPrismaGenerate,
+  packageJsonWithoutPrisma,
+  prismaSchema,
+} from '@tests/mock-data';
 
-import { getDbIcons } from './get-db-icons';
+import { iconsRemotePath } from '@constants';
 
-vi.mock('fs-extra', () => ({
-  pathExists: vi.fn(),
+import { getDbIcons } from './get-db-icons.js';
+
+vi.mock('node:fs/promises', () => ({
+  stat: vi.fn(),
   readFile: vi.fn(),
-  readJson: vi.fn(),
 }));
 
 describe('getDbIcons function', () => {
@@ -22,7 +24,7 @@ describe('getDbIcons function', () => {
   });
 
   it('should return an empty array if package.json does not exist', async () => {
-    vi.mocked(pathExists).mockResolvedValueOnce(false as never);
+    vi.mocked(stat).mockRejectedValueOnce(false);
 
     const result = await getDbIcons(path);
 
@@ -30,9 +32,11 @@ describe('getDbIcons function', () => {
   });
 
   it('should return an empty array if dependencies do not contain prisma', async () => {
-    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
-    vi.mocked(readJson).mockResolvedValueOnce(
-      packageJsonWithoutPrisma as never,
+    vi.mocked(stat).mockResolvedValueOnce({
+      isFile: () => true,
+    } as never);
+    vi.mocked(readFile).mockResolvedValueOnce(
+      JSON.stringify(packageJsonWithoutPrisma),
     );
 
     const result = await getDbIcons(path);
@@ -41,45 +45,46 @@ describe('getDbIcons function', () => {
   });
 
   it('should return technos based on providers in prisma schemas', async () => {
-    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
-    vi.mocked(readJson).mockResolvedValueOnce(
-      packageJsonWithPrismaGenerate as never,
-    );
+    vi.mocked(stat).mockResolvedValueOnce({
+      isFile: () => true,
+    } as never);
     vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('cockroachdb') as never,
+      JSON.stringify(packageJsonWithPrismaGenerate),
     );
-    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('mongodb') as never);
-    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('mysql') as never);
-    vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('postgresql') as never,
-    );
-    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('sqlite') as never);
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('cockroachdb'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('mongodb'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('mysql'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('sqlite'));
 
     const result = await getDbIcons(path);
 
-    expect(readFile).toHaveBeenCalledTimes(5);
+    expect(readFile).toHaveBeenCalledTimes(6);
+    expect(readFile).toHaveBeenNthCalledWith(1, `${path}/package.json`, {
+      encoding: 'utf-8',
+    });
     expect(readFile).toHaveBeenNthCalledWith(
-      1,
+      2,
       `${path}/prisma/schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      2,
+      3,
       `${path}/libs/nest/prisma/auth/auth-db-schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      3,
+      4,
       `${path}/libs/nest/prisma/main/main-db-schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      4,
+      5,
       `${path}/libs/nest/prisma/mission/mission-db-schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      5,
+      6,
       `${path}/libs/nest/prisma/books/books-db-schema.prisma`,
       'utf-8',
     );
@@ -115,51 +120,46 @@ describe('getDbIcons function', () => {
   });
 
   it('should return only distinct technos', async () => {
-    vi.mocked(pathExists).mockResolvedValueOnce(true as never);
-    vi.mocked(readJson).mockResolvedValueOnce(
-      packageJsonWithPrismaGenerate as never,
-    );
+    vi.mocked(stat).mockResolvedValueOnce({
+      isFile: () => true,
+    } as never);
     vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('postgresql') as never,
+      JSON.stringify(packageJsonWithPrismaGenerate),
     );
-    vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('postgresql') as never,
-    );
-    vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('postgresql') as never,
-    );
-    vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('postgresql') as never,
-    );
-    vi.mocked(readFile).mockResolvedValueOnce(
-      prismaSchema('postgresql') as never,
-    );
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql'));
+    vi.mocked(readFile).mockResolvedValueOnce(prismaSchema('postgresql'));
 
     const result = await getDbIcons(path);
 
-    expect(readFile).toHaveBeenCalledTimes(5);
+    expect(readFile).toHaveBeenCalledTimes(6);
+    expect(readFile).toHaveBeenNthCalledWith(1, `${path}/package.json`, {
+      encoding: 'utf-8',
+    });
     expect(readFile).toHaveBeenNthCalledWith(
-      1,
+      2,
       `${path}/prisma/schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      2,
+      3,
       `${path}/libs/nest/prisma/auth/auth-db-schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      3,
+      4,
       `${path}/libs/nest/prisma/main/main-db-schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      4,
+      5,
       `${path}/libs/nest/prisma/mission/mission-db-schema.prisma`,
       'utf-8',
     );
     expect(readFile).toHaveBeenNthCalledWith(
-      5,
+      6,
       `${path}/libs/nest/prisma/books/books-db-schema.prisma`,
       'utf-8',
     );

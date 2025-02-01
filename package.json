@@ -1,48 +1,72 @@
 {
   "name": "readme-package-icons",
   "version": "1.1.16",
-  "main": "index.js",
   "repository": "git@github.com:jpb06/readme-package-icons.git",
   "author": "jpb06 <jp.bois.06@outlook.fr>",
   "license": "MIT",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./dts/index.d.ts",
+  "type": "module",
   "bin": {
-    "generateReadmeIcons": "./cli/generate-readme-icons.cli.js"
+    "generateReadmeIcons": "./cjs/cli/generate-readme-icons.cli.js",
+    "generateReadmeIconsEsm": "./esm/cli/generate-readme-icons.cli.js"
+  },
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dts/index.d.ts",
+        "default": "./cjs/index.js"
+      },
+      "import": {
+        "types": "./dts/index.d.ts",
+        "default": "./esm/index.js"
+      }
+    }
   },
   "engines": {
-    "node": "20.x"
+    "node": ">=20.x"
   },
   "scripts": {
-    "update-deps": "bunx npm-check-updates --root --format group -i",
+    "update-deps": "bun npm-check-updates --root --format group -i",
     "copy-package": "copyfiles package.json ./dist/",
     "copy-readme": "copyfiles README.md ./dist/",
-    "build": "del-cli ./dist && tsc --project tsconfig.prod.json",
-    "postbuild": "bun run copy-package && bun run copy-readme",
+    "build": "del-cli ./dist && bun build-esm && bun build-cjs",
+    "build-for-test": "del-cli ./src/tests/mock-data/frozen-dist && tsc --project tsconfig.esm.json --outDir ./src/tests/mock-data/frozen-dist/esm --declarationDir ./src/tests/mock-data/frozen-dist/dts && tsc --project tsconfig.cjs.json --outDir ./src/tests/mock-data/frozen-dist/cjs",
+    "build-esm": "tsc --project tsconfig.esm.json",
+    "build-cjs": "tsc --project tsconfig.cjs.json",
+    "postbuild-cjs": "echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "postbuild-esm": "echo '{\"type\": \"module\"}' > dist/esm/package.json",
+    "postbuild": "bun run copy-package && bun run copy-readme && bun resolve-ts-paths-esm",
+    "format": "biome format --write ./src",
+    "format-ci": "biome format ./src",
+    "lint": "biome lint ./src",
+    "type-check": "tsc --noEmit",
     "test": "vitest",
     "test-ci": "vitest --coverage --run",
     "test-dev": "vitest --coverage",
     "test-coverage": "vitest run --coverage",
-    "format": "biome format --write ./src",
-    "lint": "biome lint ./src",
-    "type-check": "tsc --noEmit",
-    "cli": "bun run build && node ./dist/cli/generate-readme-icons.cli.js -h 70"
+    "cli": "bun run build && node ./dist/esm/cli/generate-readme-icons.cli.js -h 70"
   },
   "dependencies": {
-    "chalk": "4.1.2",
-    "fs-extra": "^11.2.0",
-    "yargs": "^17.7.2"
+    "comment-json": "4.2.5",
+    "picocolors": "1.1.1",
+    "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.3",
-    "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.5.0",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.7.5",
-    "@types/yargs": "^17.0.33",
-    "@vitest/coverage-v8": "^2.1.2",
-    "bun": "^1.1.30",
-    "copyfiles": "^2.4.1",
-    "del-cli": "^6.0.0",
-    "typescript": "^5.6.3",
-    "vitest": "^2.1.2"
+    "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "19.6.1",
+    "@commitlint/config-conventional": "19.6.0",
+    "@types/bun": "latest",
+    "@types/node": "22.13.0",
+    "@types/yargs": "17.0.33",
+    "@vitest/coverage-v8": "3.0.4",
+    "copyfiles": "2.4.1",
+    "del-cli": "6.0.0",
+    "npm-check-updates": "17.1.14",
+    "ts-paths-resolver": "^1.2.27",
+    "typescript": "5.7.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "3.0.4"
   }
 }

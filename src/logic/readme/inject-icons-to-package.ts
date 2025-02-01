@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'fs-extra';
+import { readFile, writeFile } from 'node:fs/promises';
 
 export const injectIconsToPackage = async (
   path: string,

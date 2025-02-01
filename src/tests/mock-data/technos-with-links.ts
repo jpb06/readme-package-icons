@@ -1,4 +1,4 @@
-import { Techno } from '../../specs/technos';
+import type { Techno } from '@specs';
 
 export const technosWithLinks: Techno[] = [
   {

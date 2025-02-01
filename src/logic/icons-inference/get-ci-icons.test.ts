@@ -1,19 +1,23 @@
-import { pathExists } from 'fs-extra';
-import { describe, it, expect, vi } from 'vitest';
+import { stat } from 'node:fs/promises';
+import { describe, expect, it, vi } from 'vitest';
 
-import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
+import { iconsRemotePath } from '@constants';
 
-import { getCiIcons } from './get-ci-icons';
+import { getCiIcons } from './get-ci-icons.js';
 
-vi.mock('fs-extra');
+vi.mock('node:fs/promises', () => ({
+  stat: vi.fn(),
+}));
 
 describe('getCiIcons function', () => {
   const path = './cool';
 
   it('should return github actions icon', async () => {
-    vi.mocked(pathExists)
-      .mockResolvedValueOnce(true as never)
-      .mockResolvedValueOnce(false as never);
+    vi.mocked(stat)
+      .mockResolvedValueOnce({
+        isDirectory: () => true,
+      } as never)
+      .mockRejectedValueOnce(false);
 
     const result = await getCiIcons(path);
 
@@ -27,9 +31,11 @@ describe('getCiIcons function', () => {
   });
 
   it('should return circle ci icon', async () => {
-    vi.mocked(pathExists)
-      .mockResolvedValueOnce(false as never)
-      .mockResolvedValueOnce(true as never);
+    vi.mocked(stat)
+      .mockRejectedValueOnce(false)
+      .mockResolvedValueOnce({
+        isFile: () => true,
+      } as never);
 
     const result = await getCiIcons(path);
 

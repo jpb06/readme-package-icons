@@ -1,4 +1,4 @@
-import { Techno } from '../../specs/technos';
+import type { Techno } from '@specs';
 
 export const buildIconsList = (icons: Techno[], height: number): string =>
   `<p align="left">${Object.entries(icons)

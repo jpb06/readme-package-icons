@@ -1,6 +1,6 @@
-import { describe, it, beforeEach, expect, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { runCommand } from '../../tests/run-command';
+import { runCommand } from '../../tests/run-command.js';
 
 describe('validateGenerateReadmeIconsArguments function', () => {
   const validateArgumentsPath = './../cli/args/generate-readme-icons.arguments';

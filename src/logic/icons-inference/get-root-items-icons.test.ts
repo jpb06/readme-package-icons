@@ -1,11 +1,11 @@
-import { readdir } from 'fs-extra';
-import { describe, it, expect, vi } from 'vitest';
+import { readdir } from 'node:fs/promises';
+import { describe, expect, it, vi } from 'vitest';
 
-import { iconsRemotePath } from '../../constants/icons-remote-path.constant';
+import { iconsRemotePath } from '@constants';
 
-import { getRootItemsIcons } from './get-root-items-icons';
+import { getRootItemsIcons } from './get-root-items-icons.js';
 
-vi.mock('fs-extra', () => ({
+vi.mock('node:fs/promises', () => ({
   readdir: vi.fn(),
 }));
 
