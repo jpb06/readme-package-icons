@@ -55,8 +55,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@commitlint/cli": "19.6.1",
-    "@commitlint/config-conventional": "19.6.0",
+    "@commitlint/cli": "19.8.0",
+    "@commitlint/config-conventional": "19.8.0",
     "@types/bun": "latest",
     "@types/node": "22.13.0",
     "@types/yargs": "17.0.33",
