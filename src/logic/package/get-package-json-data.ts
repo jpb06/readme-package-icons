@@ -3,6 +3,7 @@ import { readJson } from '@deps/fs';
 interface PackageJsonData {
   dependencies: string[];
   devDependencies?: string[];
+  peerDependencies?: string[];
   scripts: Record<string, string>;
 }
 
@@ -17,6 +18,9 @@ export const getPackageJsonData = async (
   }
   if (json.devDependencies) {
     dependencies = [...dependencies, ...Object.keys(json.devDependencies)];
+  }
+  if (json.peerDependencies) {
+    dependencies = [...dependencies, ...Object.keys(json.peerDependencies)];
   }
 
   return {
