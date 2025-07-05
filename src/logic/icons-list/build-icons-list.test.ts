@@ -8,7 +8,7 @@ describe('buildIconsList function', () => {
   it('should generate images without links', () => {
     const result = buildIconsList(technosWithoutLinks, 60);
 
-    const imgRegex = /<img height="60" src="\S+" \/>/g;
+    const imgRegex = /<img height="60" width="60" src="\S+" \/>/g;
     const imgCount = (result.match(imgRegex) || []).length;
     expect(imgCount).toBe(3);
 
@@ -21,7 +21,7 @@ describe('buildIconsList function', () => {
     const result = buildIconsList(technosWithLinks, 100);
 
     const regex =
-      /<a href="\S+" target="_blank"><img height="100" src="\S+" \/><\/a>/g;
+      /<a href="\S+" target="_blank"><img height="100" width="100" src="\S+" \/><\/a>/g;
     const count = (result.match(regex) || []).length;
 
     expect(count).toBe(3);

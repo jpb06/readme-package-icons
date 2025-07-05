@@ -46,7 +46,7 @@
     "test-ci": "vitest --coverage --run",
     "test-dev": "vitest --coverage",
     "test-coverage": "vitest run --coverage",
-    "cli": "bun run build && node ./dist/esm/cli/generate-readme-icons.cli.js -h 70"
+    "cli": "bun run build && node ./dist/esm/cli/generate-readme-icons.cli.js -h 50"
   },
   "dependencies": {
     "comment-json": "4.2.5",

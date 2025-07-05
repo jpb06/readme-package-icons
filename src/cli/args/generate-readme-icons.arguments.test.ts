@@ -22,7 +22,7 @@ describe('validateGenerateReadmeIconsArguments function', () => {
     );
 
     expect(args).toStrictEqual({
-      iconsHeight: 100,
+      iconsSize: 100,
       path,
     });
   });
@@ -31,7 +31,7 @@ describe('validateGenerateReadmeIconsArguments function', () => {
     const args = await runCommand(validateArgumentsPath);
 
     expect(args).toStrictEqual({
-      iconsHeight: 50,
+      iconsSize: 50,
       path: '.',
     });
   });

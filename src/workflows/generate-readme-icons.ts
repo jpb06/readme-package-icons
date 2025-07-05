@@ -5,18 +5,18 @@ import { injectIconsToPackage } from '../logic/readme/inject-icons-to-package.js
 
 export interface GenerateReadmeIconsArgs {
   path: string;
-  iconsHeight: number;
+  iconsSize: number;
 }
 
 export const generateReadmeIcons = async ({
   path = '.',
-  iconsHeight = 50,
+  iconsSize = 50,
 }: GenerateReadmeIconsArgs): Promise<number> => {
   const readmePath = `${path}/README.md`;
   await ensureReadmePlaceholders(readmePath);
 
   const icons = await inferIcons(path);
-  const iconsString = buildIconsList(icons, iconsHeight);
+  const iconsString = buildIconsList(icons, iconsSize);
 
   await injectIconsToPackage(readmePath, iconsString);
 
