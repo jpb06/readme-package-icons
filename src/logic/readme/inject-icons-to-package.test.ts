@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+
 import { describe, expect, it, vi } from 'vitest';
 
 import { injectIconsToPackage } from './inject-icons-to-package.js';

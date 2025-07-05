@@ -1,13 +1,13 @@
 import { readFile, stat } from 'node:fs/promises';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { iconsRemotePath } from '@constants';
 import {
-  packageJsonWithPrismaGenerate,
   packageJsonWithoutPrisma,
+  packageJsonWithPrismaGenerate,
   prismaSchema,
 } from '@tests/mock-data';
-
-import { iconsRemotePath } from '@constants';
 
 import { getDbIcons } from './get-db-icons.js';
 

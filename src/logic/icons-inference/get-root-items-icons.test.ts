@@ -1,4 +1,5 @@
 import { readdir } from 'node:fs/promises';
+
 import { describe, expect, it, vi } from 'vitest';
 
 import { iconsRemotePath } from '@constants';

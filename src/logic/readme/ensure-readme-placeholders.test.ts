@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+
 import { describe, expect, it, vi } from 'vitest';
 
 import { ensureReadmePlaceholders } from './ensure-readme-placeholders.js';

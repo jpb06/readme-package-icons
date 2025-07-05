@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+
 import { parse } from 'comment-json';
 
 export const readJson = async <TJson>(path: string): Promise<TJson> => {
