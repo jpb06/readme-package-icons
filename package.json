@@ -51,7 +51,7 @@
   "dependencies": {
     "comment-json": "4.2.5",
     "picocolors": "1.1.1",
-    "yargs": "17.7.2"
+    "yargs": "18.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
