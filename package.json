@@ -65,7 +65,7 @@
     "del-cli": "6.0.0",
     "npm-check-updates": "18.0.1",
     "ts-paths-resolver": "1.2.67",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   }
