@@ -50,7 +50,7 @@
 		"cli": "bun run build && node ./dist/esm/cli/generate-readme-icons.cli.js -h 50"
 	},
 	"dependencies": {
-		"comment-json": "4.2.5",
+		"comment-json": "4.6.2",
 		"picocolors": "1.1.1",
 		"yargs": "18.0.0"
 	},
