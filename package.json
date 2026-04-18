@@ -1,7 +1,10 @@
 {
 	"name": "readme-package-icons",
 	"version": "1.2.2",
-	"repository": "git@github.com:jpb06/readme-package-icons.git",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jpb06/readme-package-icons"
+	},
 	"author": "jpb06 <jp.bois.06@outlook.fr>",
 	"license": "MIT",
 	"main": "./cjs/index.js",
