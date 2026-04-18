@@ -60,7 +60,7 @@
 		"@commitlint/config-conventional": "20.5.0",
 		"@types/bun": "latest",
 		"@types/node": "24.12.2",
-		"@types/yargs": "17.0.33",
+		"@types/yargs": "17.0.35",
 		"@vitest/coverage-v8": "4.1.4",
 		"copyfiles": "2.4.1",
 		"del-cli": "7.0.0",
