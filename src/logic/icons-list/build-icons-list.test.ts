@@ -9,11 +9,11 @@ describe('buildIconsList function', () => {
     const result = buildIconsList(technosWithoutLinks, 60);
 
     const imgRegex = /<img height="60" width="60" src="\S+" \/>/g;
-    const imgCount = (result.match(imgRegex) || []).length;
+    const imgCount = (result.match(imgRegex) ?? []).length;
     expect(imgCount).toBe(3);
 
     const spaceRegex = /&nbsp;/g;
-    const spacesCount = (result.match(spaceRegex) || []).length;
+    const spacesCount = (result.match(spaceRegex) ?? []).length;
     expect(spacesCount).toBe(2);
   });
 
